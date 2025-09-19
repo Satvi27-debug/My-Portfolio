@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B. Satvendra Giri Nihal - Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- Basic Reset & Typography --- */
+        :root {
+            --primary-color: #3498db; /* Bright Blue */
+            --primary-dark-color: #2980b9;
+            --secondary-color: #2c3e50; /* Dark Blue */
+            --background-color: #f7f9fb; /* Very Light Blue-Gray */
+            --card-background: #ffffff;
+            --text-color: #555;
+            --heading-color: #333;
+            --light-gray-color: #ecf0f1;
+            --shadow: 0 5px 15px rgba(0,0,0,0.08);
+            --card-padding: 25px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.7;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        h1, h2, h3, h4 {
+            color: var(--heading-color);
+            font-weight: 600;
+        }
+
+        h1 { font-size: 2.5em; }
+        h2 { 
+            font-size: 2em; 
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        h2::after {
+            content: '';
+            width: 80px;
+            height: 3px;
+            background-color: var(--primary-color);
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        h3 { font-size: 1.4em; color: var(--secondary-color); margin-bottom: 10px; }
+        h4 { font-size: 1.1em; color: var(--heading-color); margin-bottom: 8px;}
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: var(--primary-dark-color);
+        }
+
+        p { margin-bottom: 10px; }
+        ul { list-style: none; }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 0 20px;
+        }
+
+        /* --- Navigation Bar --- */
+        .navbar {
+            position: sticky;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: var(--card-background);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            z-index: 1000;
+            padding: 15px 0;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1100px;
+            margin: auto;
+            padding: 0 20px;
+        }
+
+        .nav-brand {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: var(--secondary-color);
+        }
+        
+        .nav-menu a {
+            color: var(--text-color);
+            margin: 0 15px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu a:hover, .nav-menu a.active {
+            color: var(--primary-color);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .avatar {
+            width: 120px;
+            height: 120px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 3em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            box-shadow: 0 0 0 8px rgba(52, 152, 219, 0.2);
+        }
+        
+        .hero h1 {
+            color: var(--secondary-color);
+            margin-bottom: 5px;
+        }
+        
+        .hero .job-title {
+            font-size: 1.3em;
+            font-weight: 400;
+            margin-bottom: 20px;
+        }
+        
+        .hero-contact {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px 25px;
+        }
+        
+        .hero-contact a {
+            color: var(--text-color);
+            font-size: 1em;
+        }
+        
+        .hero-contact a i {
+            margin-right: 8px;
+            color: var(--primary-color);
+        }
+
+        /* --- General Section & Card Styling --- */
+        .section {
+            padding: 60px 0;
+        }
+        
+        .card {
+            background: var(--card-background);
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            padding: var(--card-padding);
+            margin-bottom: 20px;
+        }
+
+        /* --- Career Objective --- */
+        .objective-card {
+            text-align: center;
+            padding: 40px;
+        }
+
+        /* --- Education & Achievements --- */
+        .timeline {
+            position: relative;
+        }
+        .timeline-item {
+            padding: 20px;
+            margin-bottom: 20px;
+            background: #fff;
+            border-left: 4px solid var(--primary-color);
+            border-radius: 5px;
+            box-shadow: var(--shadow);
+        }
+        .timeline-item i {
+            margin-right: 10px;
+            color: var(--primary-color);
+        }
+        .timeline-details {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #777;
+        }
+
+        /* --- Technical Profile & Projects Grid --- */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        
+        .tech-card ul li, .personal-card ul li {
+            margin-bottom: 10px;
+        }
+        
+        .tech-card i, .personal-card i {
+            margin-right: 10px;
+            width: 20px; /* Aligns icons */
+            text-align: center;
+            color: var(--primary-color);
+        }
+
+        /* --- Personal Profile --- */
+        .personal-card span {
+            display: inline-block;
+            background: var(--light-gray-color);
+            padding: 3px 12px;
+            border-radius: 15px;
+            margin: 3px;
+            font-size: 0.9em;
+        }
+        
+        /* --- Footer --- */
+        .footer {
+            background: var(--secondary-color);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+        
+        .footer .container {
+            padding-top: 20px;
+            border-top: 1px solid #4a627a;
+        }
+        .footer p {
+            margin-bottom: 0;
+        }
+        .footer a {
+            color: white;
+        }
+        
+        /* --- Responsive Design --- */
+        @media(max-width: 768px) {
+            .nav-menu { display: none; } /* Simpler for this example, can be replaced with hamburger */
+            .hero-contact { flex-direction: column; gap: 15px; }
+            h1 { font-size: 2em; }
+            h2 { font-size: 1.8em; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-brand">B. Satvendra Giri Nihal</a>
+            <div class="nav-menu">
+                <a href="#about">About</a>
+                <a href="#education">Education</a>
+                <a href="#technical">Technical</a>
+                <a href="#projects">Projects</a>
+                <a href="#achievements">Achievements</a>
+                <a href="#personal">Personal</a>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <!-- ============================================= -->
+        <!-- HEADER / HERO SECTION                         -->
+        <!-- ============================================= -->
+        <header id="about" class="hero">
+            <div class="avatar">BS</div>
+            <h1>B. Satvendra Giri Nihal</h1>
+            <p class="job-title">Python Developer</p>
+            <div class="hero-contact">
+                <a href="tel:9959871247"><i class="fas fa-phone"></i> 9959871247</a>
+                <a href="mailto:satvendragirinihal@gmail.com"><i class="fas fa-envelope"></i> satvendragirinihal@gmail.com</a>
+                <a><i class="fas fa-map-marker-alt"></i> Hyderabad, India</a>
+            </div>
+        </header>
+
+        <main>
+            <!-- ============================================= -->
+            <!-- CAREER OBJECTIVE SECTION                      -->
+            <!-- ============================================= -->
+            <section id="objective" class="section">
+                <h2>Career Objective</h2>
+                <div class="card objective-card">
+                    <p>Enthusiastic and quick-learning Computer Science graduate with a solid understanding of Python programming and AI-ML. Looking to launch a career as a Python Developer in a forward-thinking company where I can apply my skills to real-world projects and grow through hands-on experience.</p>
+                </div>
+            </section>
+
+            <!-- ============================================= -->
+            <!-- EDUCATION SECTION                             -->
+            <!-- ============================================= -->
+            <section id="education" class="section">
+                <h2>Education</h2>
+                <div class="timeline">
+                    <!-- Education Item 1 -->
+                    <div class="timeline-item">
+                        <h4><i class="fas fa-graduation-cap"></i>Bachelor of Technology</h4>
+                        <p>Computer Science & Engineering</p>
+                        <div class="timeline-details">
+                            <span><strong>Institution:</strong> ACE Engineering College, Hyderabad</span>
+                            <span><strong>Year of Passing:</strong> 2028</span>
+                            <span><strong>Grade:</strong> - </span>
+                        </div>
+                    </div>
+                    <!-- Education Item 2 -->
+                    <div class="timeline-item">
+                        <h4><i class="fas fa-school"></i>Intermediate</h4>
+                        <p>Maths, Physics, Chemistry</p>
+                        <div class="timeline-details">
+                            <span><strong>Institution:</strong> Trividya Junior College, A.S.Rao Nagar</span>
+                            <span><strong>Year of Passing:</strong> 2024</span>
+                            <span><strong>Grade:</strong> 90% </span>
+                        </div>
+                    </div>
+                     <!-- Education Item 3 -->
+                    <div class="timeline-item">
+                        <h4><i class="fas fa-book-open"></i>Secondary School Certificate</h4>
+                        <p>Maths, Science, Social Studies & Languages</p>
+                        <div class="timeline-details">
+                            <span><strong>Institution:</strong> Sri Chaitanya Techno School, Ecil</span>
+                            <span><strong>Year of Passing:</strong> 2022</span>
+                            <span><strong>Grade:</strong> 95% </span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+             <!-- ============================================= -->
+            <!-- TECHNICAL PROFILE SECTION                     -->
+            <!-- ============================================= -->
+            <section id="technical" class="section">
+                <h2>Technical Profile</h2>
+                <div class="grid-container">
+                    <div class="card tech-card">
+                        <h3><i class="fas fa-code"></i> Programming Languages</h3>
+                        <ul>
+                            <li><i class="fab fa-cuttlefish"></i> C </li>
+                            <li><i class="fab fa-cuttlefish"></i> Python </li>
+                        </ul>
+                    </div>
+                    <!--Add additional skills like operating system or database etc.-->
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================= -->
+            <!-- PROJECTS SECTION                              -->
+            <!-- ============================================= -->
+            <section id="projects" class="section">
+                <h2>Projects</h2>
+                <div class="card">
+                    <h3>Measuring of Displacement using ATMEL 89C51 Microprocessor</h3>
+                    <p>B.Tech Final Year Project</p>
+                    <div class="grid-container" style="gap: 15px; margin-top: 20px;">
+                        <div><strong>Duration:</strong> Depending on the Project </div>
+                        <div><strong>Technology Used:</strong> Depending on the Project </div>
+                        <div><strong>Purpose:</strong> Towards partial fulfillment for the award of B.Tech Degree</div>
+                        <div><strong>Team Size:</strong> - </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- ============================================= -->
+            <!-- ACHIEVEMENTS SECTION                          -->
+            <!-- ============================================= -->
+            <section id="achievements" class="section">
+                <h2>Achievements</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <!--Add Achivements-->
+                    </div>
+                    <div class="timeline-item">
+                        <!--Add Achivements-->
+                    </div>
+                    <div class="timeline-item">
+                        <!--Add Achivements-->
+                    </div>
+                    <div class="timeline-item">
+                        <!--Add Achivements-->  
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================= -->
+            <!-- PERSONAL PROFILE SECTION                      -->
+            <!-- ============================================= -->
+            <section id="personal" class="section">
+                <h2>Personal Profile</h2>
+                <div class="grid-container">
+                    <div class="card personal-card">
+                        <h3><i class="fas fa-heart"></i> Strengths</h3>
+                        <p>
+                            <span>Positive Attitude</span> <span>Determination</span>
+                            <span>Team Management</span> <span>Patience</span>
+                        </p>
+                    </div>
+                    <div class="card personal-card">
+                        <h3><i class="fas fa-book"></i> Hobbies</h3>
+                        <p>
+                             <span>Reading Books</span> <span>Listening to Music</span> <span>Travelling</span>
+                        </p>
+                    </div>
+                    <div class="card personal-card">
+                        <h3><i class="fas fa-user"></i> Personal Details</h3>
+                         <ul>
+                            <li><strong>Languages Known:</strong> English, Telugu, Hindi</li>
+                            <li><strong>Address:</strong> C-7-28, Gokula Giri Nivasam, Simhapuri Colony, Nagaram, ECIL, Hyderabad - 500 083</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- ============================================= -->
+    <!-- FOOTER                                        -->
+    <!-- ============================================= -->
+    <footer class="footer">
+        <h2>Get in Touch</h2>
+        <div class="hero-contact">
+             <a href="tel:9959871247"><i class="fas fa-phone"></i> 9959871247</a>
+             <a href="mailto:satvendragirinihal@gmail.com"><i class="fas fa-envelope"></i> satvendragirinihal@gmail.com</a>
+             <a><i class="fas fa-map-marker-alt"></i> Hyderabad, India</a>
+        </div>
+        <div class="container">
+            <p>&copy; 2025 B. Satvendra Giri Nihal. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
