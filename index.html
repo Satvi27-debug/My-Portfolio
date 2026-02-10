@@ -2,460 +2,286 @@
 // https://satvendraportfolio.netlify.app
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>B. Satvendra Giri Nihal - Portfolio</title>
+    <title>Elite Portfolio | B. Satvendra Giri Nihal</title>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
     <style>
-        /* --- Basic Reset & Typography --- */
         :root {
-            --primary-color: #3498db; /* Bright Blue */
-            --primary-dark-color: #2980b9;
-            --secondary-color: #2c3e50; /* Dark Blue */
-            --background-color: #f7f9fb; /* Very Light Blue-Gray */
-            --card-background: #ffffff;
-            --text-color: #555;
-            --heading-color: #333;
-            --light-gray-color: #ecf0f1;
-            --shadow: 0 5px 15px rgba(0,0,0,0.08);
-            --card-padding: 25px;
+            --bg: #050b18;
+            --card-bg: rgba(15, 23, 42, 0.6);
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
+            --primary: #6366f1;
+            --secondary: #ec4899;
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --neon-glow: 0 0 20px rgba(99, 102, 241, 0.4);
+        }
+
+        [data-theme="light"] {
+            --bg: #f1f5f9;
+            --card-bg: rgba(255, 255, 255, 0.7);
+            --text-main: #0f172a;
+            --text-dim: #64748b;
+            --primary: #4f46e5;
+            --secondary: #db2777;
+            --glass-border: rgba(0, 0, 0, 0.08);
+            --neon-glow: 0 10px 15px rgba(0, 0, 0, 0.1);
         }
 
         * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            scroll-behavior: smooth;
+            margin: 0; padding: 0; box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+            cursor: none;
         }
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            line-height: 1.7;
-            background-color: var(--background-color);
-            color: var(--text-color);
+        body { background: var(--bg); color: var(--text-main); overflow-x: hidden; }
+
+        /* Custom Magnetic Cursor */
+        #cursor {
+            position: fixed; width: 12px; height: 12px;
+            background: var(--primary); border-radius: 50%;
+            pointer-events: none; z-index: 9999;
+            box-shadow: var(--neon-glow);
+            transition: transform 0.1s ease-out;
         }
 
-        h1, h2, h3, h4 {
-            color: var(--heading-color);
-            font-weight: 600;
+        #particles-js { position: fixed; width: 100%; height: 100%; z-index: -1; }
+
+        /* Progress Scroll Tracker */
+        #scroll-path {
+            position: fixed; top: 0; left: 0; width: 0%; height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            z-index: 3000;
         }
 
-        h1 { font-size: 2.5em; }
-        h2 { 
-            font-size: 2em; 
-            text-align: center;
-            margin-bottom: 40px;
-            position: relative;
-        }
-        
-        h2::after {
-            content: '';
-            width: 80px;
-            height: 3px;
-            background-color: var(--primary-color);
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            border-radius: 2px;
+        /* Modern Hybrid Navigation */
+        nav {
+            position: fixed; top: 2rem; left: 50%; transform: translateX(-50%);
+            width: 95%; max-width: 1000px;
+            background: var(--card-bg); backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border); border-radius: 100px;
+            padding: 0.8rem 2rem; display: flex;
+            justify-content: space-between; align-items: center; z-index: 1000;
         }
 
-        h3 { font-size: 1.4em; color: var(--secondary-color); margin-bottom: 10px; }
-        h4 { font-size: 1.1em; color: var(--heading-color); margin-bottom: 8px;}
-
-        a {
-            color: var(--primary-color);
-            text-decoration: none;
+        .nav-links a {
+            color: var(--text-dim); text-decoration: none;
+            margin: 0 1rem; font-weight: 500; font-size: 0.85rem;
+            text-transform: uppercase; letter-spacing: 1px;
         }
 
-        a:hover {
-            color: var(--primary-dark-color);
+        .nav-links a:hover { color: var(--primary); }
+
+        .theme-toggle {
+            width: 45px; height: 45px; border-radius: 50%;
+            background: var(--glass-border); border: none;
+            color: var(--primary); cursor: pointer; display: flex;
+            align-items: center; justify-content: center;
         }
 
-        p { margin-bottom: 10px; }
-        ul { list-style: none; }
-
-        .container {
-            max-width: 1100px;
-            margin: auto;
-            padding: 0 20px;
-        }
-
-        /* --- Navigation Bar --- */
-        .navbar {
-            position: sticky;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background: var(--card-background);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            z-index: 1000;
-            padding: 15px 0;
-        }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1100px;
-            margin: auto;
-            padding: 0 20px;
-        }
-
-        .nav-brand {
-            font-size: 1.5em;
-            font-weight: 700;
-            color: var(--secondary-color);
-        }
-        
-        .nav-menu a {
-            color: var(--text-color);
-            margin: 0 15px;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .nav-menu a:hover, .nav-menu a.active {
-            color: var(--primary-color);
-        }
-
-        /* --- Hero Section --- */
+        /* Hero Canvas */
         .hero {
-            padding: 80px 0;
-            text-align: center;
+            height: 100vh; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; text-align: center;
         }
-        
-        .avatar {
-            width: 120px;
-            height: 120px;
-            background: var(--primary-color);
-            color: white;
-            border-radius: 50%;
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 3em;
-            font-weight: 700;
-            margin-bottom: 20px;
-            box-shadow: 0 0 0 8px rgba(52, 152, 219, 0.2);
-        }
-        
+
         .hero h1 {
-            color: var(--secondary-color);
-            margin-bottom: 5px;
-        }
-        
-        .hero .job-title {
-            font-size: 1.3em;
-            font-weight: 400;
-            margin-bottom: 20px;
-        }
-        
-        .hero-contact {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 10px 25px;
-        }
-        
-        .hero-contact a {
-            color: var(--text-color);
-            font-size: 1em;
-        }
-        
-        .hero-contact a i {
-            margin-right: 8px;
-            color: var(--primary-color);
+            font-size: clamp(3rem, 10vw, 6rem); font-weight: 900;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent; 
+            letter-spacing: -3px;
         }
 
-        /* --- General Section & Card Styling --- */
-        .section {
-            padding: 60px 0;
-        }
-        
+        /* Container & Cards */
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+        section { padding: 120px 0; }
+
         .card {
-            background: var(--card-background);
-            border-radius: 10px;
-            box-shadow: var(--shadow);
-            padding: var(--card-padding);
-            margin-bottom: 20px;
+            background: var(--card-bg); border: 1px solid var(--glass-border);
+            border-radius: 30px; padding: 3rem; backdrop-filter: blur(12px);
+            position: relative; transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* --- Career Objective --- */
-        .objective-card {
-            text-align: center;
-            padding: 40px;
+        .card:hover {
+            transform: scale(1.02) rotateX(2deg);
+            border-color: var(--primary); box-shadow: var(--neon-glow);
         }
 
-        /* --- Education & Achievements --- */
-        .timeline {
-            position: relative;
+        /* Skill Node Feature */
+        .skills-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1.5rem; }
+        .skill-node {
+            padding: 1.5rem; background: var(--glass-border);
+            border-radius: 20px; text-align: center;
+            border: 1px solid transparent; transition: 0.3s;
         }
-        .timeline-item {
-            padding: 20px;
-            margin-bottom: 20px;
-            background: #fff;
-            border-left: 4px solid var(--primary-color);
-            border-radius: 5px;
-            box-shadow: var(--shadow);
-        }
-        .timeline-item i {
-            margin-right: 10px;
-            color: var(--primary-color);
-        }
-        .timeline-details {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 10px;
-            font-size: 0.9em;
-            color: #777;
+        .skill-node:hover { border-color: var(--secondary); background: rgba(236, 72, 153, 0.1); }
+
+        /* Achievement Timeline */
+        .timeline { border-left: 2px dashed var(--primary); padding-left: 2.5rem; }
+        .timeline-box { position: relative; margin-bottom: 4rem; }
+        .timeline-box::before {
+            content: ''; position: absolute; left: -3.2rem; top: 0;
+            width: 20px; height: 20px; background: var(--bg);
+            border: 3px solid var(--primary); border-radius: 50%;
         }
 
-        /* --- Technical Profile & Projects Grid --- */
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-        }
-        
-        .tech-card ul li, .personal-card ul li {
-            margin-bottom: 10px;
-        }
-        
-        .tech-card i, .personal-card i {
-            margin-right: 10px;
-            width: 20px; /* Aligns icons */
-            text-align: center;
-            color: var(--primary-color);
+        /* Footer */
+        footer {
+            padding: 6rem 0; text-align: center;
+            border-top: 1px solid var(--glass-border);
         }
 
-        /* --- Personal Profile --- */
-        .personal-card span {
-            display: inline-block;
-            background: var(--light-gray-color);
-            padding: 3px 12px;
-            border-radius: 15px;
-            margin: 3px;
-            font-size: 0.9em;
-        }
-        
-        /* --- Footer --- */
-        .footer {
-            background: var(--secondary-color);
-            color: white;
-            padding: 40px 0;
-            text-align: center;
-        }
-        
-        .footer .container {
-            padding-top: 20px;
-            border-top: 1px solid #4a627a;
-        }
-        .footer p {
-            margin-bottom: 0;
-        }
-        .footer a {
-            color: white;
-        }
-        
-        /* --- Responsive Design --- */
-        @media(max-width: 768px) {
-            .nav-menu { display: none; } /* Simpler for this example, can be replaced with hamburger */
-            .hero-contact { flex-direction: column; gap: 15px; }
-            h1 { font-size: 2em; }
-            h2 { font-size: 1.8em; }
-        }
+        .social-dock { display: flex; justify-content: center; gap: 3rem; margin-bottom: 2rem; }
+        .social-dock a { font-size: 2rem; color: var(--text-dim); transition: 0.4s; }
+        .social-dock a:hover { color: var(--primary); transform: translateY(-10px); }
 
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            #cursor { display: none; }
+            * { cursor: auto !important; }
+        }
     </style>
 </head>
 <body>
 
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="#" class="nav-brand">B. Satvendra Giri Nihal</a>
-            <div class="nav-menu">
-                <a href="#about">About</a>
-                <a href="#education">Education</a>
-                <a href="#technical">Technical</a>
-                <a href="#projects">Projects</a>
-                <a href="#achievements">Achievements</a>
-                <a href="#personal">Personal</a>
-            </div>
+    <div id="scroll-path"></div>
+    <div id="cursor"></div>
+    <div id="particles-js"></div>
+
+    <nav>
+        <div style="font-weight: 900; letter-spacing: 2px; color: var(--primary);">SATVENDRA.DEV</div>
+        <div class="nav-links">
+            <a href="#about">Core</a>
+            <a href="#skills">Mastery</a>
+            <a href="#projects">Work</a>
+            <a href="#honors">Honors</a>
         </div>
+        <button class="theme-toggle" id="theme-btn"><i class="fas fa-adjust"></i></button>
     </nav>
-    
+
+    <header class="hero" id="about">
+        <h1 class="reveal">B. Satvendra Giri Nihal</h1>
+        <p class="reveal" style="font-size: 1.6rem; color: var(--text-dim); margin-top: 1rem;">
+            I architect <span id="typing-text" style="color: var(--secondary); font-weight: 600;"></span>
+        </p>
+    </header>
+
     <div class="container">
-        <!-- ============================================= -->
-        <!-- HEADER / HERO SECTION                         -->
-        <!-- ============================================= -->
-        <header id="about" class="hero">
-            <div class="avatar">BS</div>
-            <h1>B. Satvendra Giri Nihal</h1>
-            <p class="job-title">Python Developer</p>
-            <div class="hero-contact">
-                <a href="tel:9959871247"><i class="fas fa-phone"></i> 9959871247</a>
-                <a href="mailto:satvendragirinihal@gmail.com"><i class="fas fa-envelope"></i> satvendragirinihal@gmail.com</a>
-                <a><i class="fas fa-map-marker-alt"></i> Hyderabad, India</a>
+        
+        <section>
+            <div class="card reveal">
+                <h2 style="margin-bottom: 2rem;">The Professional Mission</h2>
+                <p style="font-size: 1.2rem; line-height: 2;">
+                    Forward-thinking Computer Science specialist focusing on <strong>Python Architectures</strong> and <strong>AI/ML Integration</strong>. Currently maintaining an elite <strong>9.5 CGPA</strong> at ACE Engineering College, dedicated to translating complex data into scalable real-world solutions.
+                </p>
             </div>
-        </header>
+        </section>
 
-        <main>
-            <!-- ============================================= -->
-            <!-- CAREER OBJECTIVE SECTION                      -->
-            <!-- ============================================= -->
-            <section id="objective" class="section">
-                <h2>Career Objective</h2>
-                <div class="card objective-card">
-                    <p>Enthusiastic and quick-learning Computer Science graduate with a solid understanding of Python programming and AI-ML. Looking to launch a career as a Python Developer in a forward-thinking company where I can apply my skills to real-world projects and grow through hands-on experience.</p>
-                </div>
-            </section>
+        <section id="skills">
+            <h2 class="reveal" style="text-align: center; margin-bottom: 4rem; font-size: 3rem;">Technical Arsenal</h2>
+            <div class="skills-container">
+                <div class="skill-node reveal"><i class="fab fa-python fa-2x"></i><p>Python</p></div>
+                <div class="skill-node reveal"><i class="fas fa-brain fa-2x"></i><p>AI/ML</p></div>
+                <div class="skill-node reveal"><i class="fab fa-html5 fa-2x"></i><p>Web Tech</p></div>
+                <div class="skill-node reveal"><i class="fas fa-database fa-2x"></i><p>Power BI</p></div>
+                <div class="skill-node reveal"><i class="fab fa-github fa-2x"></i><p>GitOps</p></div>
+                <div class="skill-node reveal"><i class="fas fa-terminal fa-2x"></i><p>C Lang</p></div>
+            </div>
+        </section>
 
-            <!-- ============================================= -->
-            <!-- EDUCATION SECTION                             -->
-            <!-- ============================================= -->
-            <section id="education" class="section">
-                <h2>Education</h2>
-                <div class="timeline">
-                    <!-- Education Item 1 -->
-                    <div class="timeline-item">
-                        <h4><i class="fas fa-graduation-cap"></i>Bachelor of Technology</h4>
-                        <p>Computer Science & Engineering</p>
-                        <div class="timeline-details">
-                            <span><strong>Institution:</strong> ACE Engineering College, Hyderabad</span>
-                            <span><strong>Year of Passing:</strong> 2028</span>
-                            <span><strong>Grade:</strong> - </span>
-                        </div>
-                    </div>
-                    <!-- Education Item 2 -->
-                    <div class="timeline-item">
-                        <h4><i class="fas fa-school"></i>Intermediate</h4>
-                        <p>Maths, Physics, Chemistry</p>
-                        <div class="timeline-details">
-                            <span><strong>Institution:</strong> Trividya Junior College, A.S.Rao Nagar</span>
-                            <span><strong>Year of Passing:</strong> 2024</span>
-                            <span><strong>Grade:</strong> 90% </span>
-                        </div>
-                    </div>
-                     <!-- Education Item 3 -->
-                    <div class="timeline-item">
-                        <h4><i class="fas fa-book-open"></i>Secondary School Certificate</h4>
-                        <p>Maths, Science, Social Studies & Languages</p>
-                        <div class="timeline-details">
-                            <span><strong>Institution:</strong> Sri Chaitanya Techno School, Ecil</span>
-                            <span><strong>Year of Passing:</strong> 2022</span>
-                            <span><strong>Grade:</strong> 95% </span>
-                        </div>
-                    </div>
+        <section id="projects">
+            <h2 class="reveal" style="margin-bottom: 4rem; text-align: center;">Project Vault</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem;">
+                <div class="card reveal">
+                    <h3>AI Song Remixer</h3>
+                    <p>Advanced audio processing engine built using Python AI workflows. High-performance remixing for college AI Hack Day events.</p>
                 </div>
-            </section>
+                <div class="card reveal">
+                    <h3>Logic Engine: Tic-Tac-Toe</h3>
+                    <p>Modular Python implementation featuring advanced game flow logic and iterative error debugging.</p>
+                </div>
+            </div>
+        </section>
 
-             <!-- ============================================= -->
-            <!-- TECHNICAL PROFILE SECTION                     -->
-            <!-- ============================================= -->
-            <section id="technical" class="section">
-                <h2>Technical Profile</h2>
-                <div class="grid-container">
-                    <div class="card tech-card">
-                        <h3><i class="fas fa-code"></i> Programming Languages</h3>
-                        <ul>
-                            <li><i class="fab fa-cuttlefish"></i> C </li>
-                            <li><i class="fab fa-cuttlefish"></i> Python </li>
-                        </ul>
-                    </div>
-                    <!--Add additional skills like operating system or database etc.-->
-                    </div>
+        <section id="honors">
+            <h2 class="reveal" style="text-align: center; margin-bottom: 4rem;">Elite Certifications</h2>
+            <div class="timeline">
+                <div class="timeline-box reveal">
+                    <h3>IBM Professional: Data Visualization</h3>
+                    <p>End-to-end Python data storytelling certification.</p>
                 </div>
-            </section>
+                <div class="timeline-box reveal">
+                    <h3>LinkedIn Global: Power BI</h3>
+                    <p>Foundational business intelligence and dashboard design.</p>
+                </div>
+                <div class="timeline-box reveal">
+                    <h3>C Language: Code Craze 2025</h3>
+                    <p>Champion of the "Solution Sprint" algorithmic contest.</p>
+                </div>
+            </div>
+        </section>
 
-            <!-- ============================================= -->
-            <!-- PROJECTS SECTION                              -->
-            <!-- ============================================= -->
-            <section id="projects" class="section">
-                <h2>Projects</h2>
-                <div class="card">
-                    <h3>Measuring of Displacement using ATMEL 89C51 Microprocessor</h3>
-                    <p>B.Tech Final Year Project</p>
-                    <div class="grid-container" style="gap: 15px; margin-top: 20px;">
-                        <div><strong>Duration:</strong> Depending on the Project </div>
-                        <div><strong>Technology Used:</strong> Depending on the Project </div>
-                        <div><strong>Purpose:</strong> Towards partial fulfillment for the award of B.Tech Degree</div>
-                        <div><strong>Team Size:</strong> - </div>
-                    </div>
-                </div>
-            </section>
-            
-            <!-- ============================================= -->
-            <!-- ACHIEVEMENTS SECTION                          -->
-            <!-- ============================================= -->
-            <section id="achievements" class="section">
-                <h2>Achievements</h2>
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <!--Add Achivements-->
-                    </div>
-                    <div class="timeline-item">
-                        <!--Add Achivements-->
-                    </div>
-                    <div class="timeline-item">
-                        <!--Add Achivements-->
-                    </div>
-                    <div class="timeline-item">
-                        <!--Add Achivements-->  
-                    </div>
-                </div>
-            </section>
-
-            <!-- ============================================= -->
-            <!-- PERSONAL PROFILE SECTION                      -->
-            <!-- ============================================= -->
-            <section id="personal" class="section">
-                <h2>Personal Profile</h2>
-                <div class="grid-container">
-                    <div class="card personal-card">
-                        <h3><i class="fas fa-heart"></i> Strengths</h3>
-                        <p>
-                            <span>Positive Attitude</span> <span>Determination</span>
-                            <span>Team Management</span> <span>Patience</span>
-                        </p>
-                    </div>
-                    <div class="card personal-card">
-                        <h3><i class="fas fa-book"></i> Hobbies</h3>
-                        <p>
-                             <span>Reading Books</span> <span>Listening to Music</span> <span>Travelling</span>
-                        </p>
-                    </div>
-                    <div class="card personal-card">
-                        <h3><i class="fas fa-user"></i> Personal Details</h3>
-                         <ul>
-                            <li><strong>Languages Known:</strong> English, Telugu, Hindi</li>
-                            <li><strong>Address:</strong> C-7-28, Gokula Giri Nivasam, Simhapuri Colony, Nagaram, ECIL, Hyderabad - 500 083</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-        </main>
     </div>
 
-    <!-- ============================================= -->
-    <!-- FOOTER                                        -->
-    <!-- ============================================= -->
-    <footer class="footer">
-        <h2>Get in Touch</h2>
-        <div class="hero-contact">
-             <a href="tel:9959871247"><i class="fas fa-phone"></i> 9959871247</a>
-             <a href="mailto:satvendragirinihal@gmail.com"><i class="fas fa-envelope"></i> satvendragirinihal@gmail.com</a>
-             <a><i class="fas fa-map-marker-alt"></i> Hyderabad, India</a>
+    <footer>
+        <div class="social-dock reveal">
+            <a href="https://github.com/Satvi27-debug" target="_blank"><i class="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/satvendra-giri-nihal-badam-161131328/" target="_blank"><i class="fab fa-linkedin"></i></a>
+            <a href="mailto:mail2satvendra@gmail.com"><i class="fas fa-envelope"></i></a>
+            <a href="tel:+919959871247"><i class="fas fa-phone"></i></a>
         </div>
-        <div class="container">
-            <p>&copy; 2025 B. Satvendra Giri Nihal. All rights reserved.</p>
-        </div>
+        <p style="color: var(--text-dim);">&copy; 2026 B. Satvendra Giri Nihal. Professional Grade Portfolio.</p>
     </footer>
 
+    <script>
+        // Custom Cursor Movement
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', e => {
+            cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+        });
+
+        // Dynamic Scroll Tracker
+        window.onscroll = () => {
+            const winScroll = document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            document.getElementById("scroll-path").style.width = (winScroll / height) * 100 + "%";
+        };
+
+        // Role Animation
+        new Typed('#typing-text', {
+            strings: ['Intelligent Backends', 'Scalable AI Systems', 'Modern Web Architectures', 'Future Tech'],
+            typeSpeed: 50, backSpeed: 30, loop: true
+        });
+
+        // Smart Theme Toggle
+        document.getElementById('theme-btn').addEventListener('click', () => {
+            const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', theme);
+        });
+
+        // Smooth Reveal Logic
+        ScrollReveal().reveal('.reveal', { distance: '80px', duration: 1200, delay: 200, origin: 'bottom' });
+
+        // Particles Configuration
+        particlesJS('particles-js', {
+            "particles": {
+                "number": { "value": 80 }, "color": { "value": "#6366f1" },
+                "shape": { "type": "circle" }, "opacity": { "value": 0.2 },
+                "size": { "value": 3 }, "move": { "enable": true, "speed": 1.5 },
+                "line_linked": { "enable": true, "distance": 150, "color": "#6366f1", "opacity": 0.1, "width": 1 }
+            }
+        });
+    </script>
 </body>
 </html>
